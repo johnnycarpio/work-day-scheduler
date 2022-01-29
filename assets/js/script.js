@@ -1,7 +1,42 @@
 // use #currentDay to display current day and date
+var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+var currentDate = new Date();
+var displayedDate = currentDate.toLocaleDateString("en-US", options);
+var timeBlock = document.querySelectorAll('.time-block');
+var currentHour = currentDate.getHours();
+console.log(currentHour);
 
-var currentDate = Date();
-$("#currentDay").html(currentDate);
+// for (var i = 0; i < timeBlock.length; i++) {
+//     var timeBlockTime = parseInt(timeBlock[i].dataset.id);
+//     if (currentHour > timeBlockTime) {
+//         timeBlock[i].classList.add("past");
+//     }
+//     else if (currentHour === timeBlockTime) {
+//         timeBlock[i].classList.add("present")
+//     }
+//     else {
+//         timeBlock[i].classList.add("future")
+//     }
+// }
+
+$(".time-block").each(function() {
+    var timeBlockTime = $(this).data("id");
+    if (currentHour > timeBlockTime) {
+        $(this).addClass("past")
+    }
+    else if (currentHour === timeBlockTime) {
+        $(this).addClass("present")
+    }
+    else {
+        $(this).addClass("future")
+    }
+})
+
+$("#currentDay").html(displayedDate);
+
+// Get current hour to begin .addClass on time blocks
+
+//9AM
 
 // Selecting parent div which returns an array of children
 var nineAm = document.querySelector("#nineam");
@@ -125,5 +160,3 @@ sixPmButton.addEventListener("click", function(){
 });
 
 sixPmInput.value = localStorage.getItem("6PM");
-
-// depending on the time of day, use .addClass (classes in CSS) to color code
